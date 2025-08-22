@@ -14,10 +14,19 @@
   --snd-bg-color: #d5fdf9;
   --text-color: #000;
   --main-color: #007f73;
-  --dark-color: #333;
+  --bg-color2: #333;
+}
+:dark-mode {
+  --bg-color: #1a1a1a;
+  --snd-bg-color: #222;
+  --text-color: #f5f5f5;
+  --main-color: #00c2a8;
+  --bg-color2: #000;
 }
 body {
-  color: #333;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 ul {
@@ -29,27 +38,35 @@ ul {
 header {
   position: fixed;
   background-color: var(--main-color);
-  border-bottom: 1px solid #eee;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   z-index: 1000;
   width: 100%;
   top: 0;
-  padding: 1rem;
+  padding: 0.5rem;
   transition: all 0.5s ease;
 }
-
+.others {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.5rem;
+  align-items: center;
+  justify-items: space-between;
+}
 .logo {
+  font-family: "Pacifico", cursive; /* Unique font */
   font-weight: bold;
   font-size: 2rem;
   padding-left: 1rem;
-  color: #333;
+  color: var(--text-color);
   cursor: pointer;
   transition: 0.3s ease;
 }
+
 .logo:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .navbar ul {
@@ -58,19 +75,33 @@ header {
 
 .navbar li {
   margin-left: 2rem;
+  font-size: 1.2rem;
 }
 
 .navbar a {
-  color: #555;
+  color: var(--text-color);
 }
 
 .navbar ul li a:hover {
   color: var(--snd-bg-color);
   font-weight: bold;
 }
-#menu-icon {
+.others #menu-icon {
   cursor: pointer;
   display: none;
+}
+
+#theme-toggle {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: transform 0.3s ease;
+}
+
+#theme-toggle:hover {
+  transform: scale(1.2);
 }
 
 /* Hero Section */
@@ -79,7 +110,7 @@ header {
   align-items: center;
   justify-content: space-around;
   padding: 6rem 2rem;
-  background-color: #f8f9fa;
+  background-color: var(--snd-bg-color);
 }
 
 .hero-text {
@@ -89,10 +120,32 @@ header {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
+.hero-text .highlighted-name {
+  font-size: 45px; /* Slightly bigger */
+  color: var(--main-color);
+}
+.hero-text .cursor {
+  display: inline-block;
+  margin-left: 2px;
+  width: 2px;
 
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
 .hero-text p {
   font-size: 1.2rem;
   margin-bottom: 1rem;
+  color: var(--text-color);
 }
 
 .cta-button {
@@ -111,7 +164,6 @@ header {
 .hero-image img {
   width: 300px;
   height: 300px;
-
   border-radius: 50%;
   box-shadow: 0 0 25px var(--main-color);
   cursor: pointer;
@@ -212,6 +264,7 @@ section h2 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  overflow: hidden;
   padding: 2rem;
 }
 .projects {
@@ -219,11 +272,14 @@ section h2 {
   justify-content: space-around;
 }
 .project {
-  background-color: var(--bg-color);
   border: 1px solid var(--bg-color);
   border-radius: 10px;
   padding: 1rem;
   text-align: left;
+}
+.project:hover {
+  background-color: var(--main-color);
+  transform: scale(1.05);
 }
 .projects h2 {
   text-align: center;
@@ -238,21 +294,17 @@ section h2 {
 .project h3 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
+  color: var(--main-color);
 }
 .project p {
   margin-bottom: 1rem;
-}
-.project:hover {
-  background-color: var(--snd-bg-color);
-  transform: scale(1.1);
 }
 
 /* Contact Section */
 .contact {
   background: var(--snd-bg-color);
-  /* Optional: make it full screen height */
-  margin: 0; /* Remove any extra margins */
-  padding: 5rem 2rem; /* Add padding as needed */
+  margin: 0;
+  padding: 5rem 2rem;
   box-sizing: border-box;
 }
 
@@ -300,8 +352,8 @@ section h2 {
 /* Footer */
 footer {
   position: relative;
-  background-color: var(--dark-color);
-  color: var(--bg-color);
+  background-color: var(--bg-color2);
+  color: var(--text-color);
   text-align: center;
   padding: 1.5rem;
   width: 100%;
@@ -349,14 +401,14 @@ footer .social-icons a {
   }
 }
 @media (max-width: 991px) {
-  #menu-icon {
-    display: block;
+  .others #menu-icon {
+    display: none;
   }
   .navbar {
     position: absolute;
     top: 100%;
     right: -255px; /* hidden initially */
-    width: 155px;
+    width: 200;
     min-height: 100vh;
     line-height: 50px;
     font-style: italic;
