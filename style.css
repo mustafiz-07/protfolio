@@ -9,14 +9,14 @@
   scroll-behavior: smooth;
   font-family: -apple-system, sans-serif;
 }
-:root {
+/* :root {
   --bg-color: #fff;
   --snd-bg-color: #d5fdf9;
   --text-color: #000;
   --main-color: #007f73;
   --bg-color2: #333;
-}
-:dark-mode {
+} */
+:root {
   --bg-color: #1a1a1a;
   --snd-bg-color: #222;
   --text-color: #f5f5f5;
@@ -63,23 +63,23 @@ header {
   color: var(--text-color);
   cursor: pointer;
   transition: 0.3s ease;
+  animation: slideRight 1s ease forwards;
 }
 
 .logo:hover {
   transform: scale(1.2);
 }
 
-.navbar ul {
-  display: flex;
-}
-
-.navbar li {
+.navbar a {
+  display: inline-block;
+  color: var(--text-color);
   margin-left: 2rem;
   font-size: 1.2rem;
-}
+  font-weight: 500;
+  animation: slideTop 1s ease forwards;
+  animation-delay: calc(var(--i) * 0.2s);
 
-.navbar a {
-  color: var(--text-color);
+  opacity: 0;
 }
 
 .navbar ul li a:hover {
@@ -97,7 +97,11 @@ header {
   border: none;
   cursor: pointer;
   margin-left: 1rem;
-  transition: transform 0.3s ease;
+  margin-right: 2rem;
+  transition: 0.3s;
+  animation: slideTop 1s ease forwards;
+  animation-delay: calc(var(--i) * 0.2s);
+  opacity: 0;
 }
 
 #theme-toggle:hover {
@@ -119,6 +123,15 @@ header {
 .hero-text h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
+  opacity: 0;
+  animation: slideBottom 1s ease forwards;
+  animation-delay: 0.4s;
+}
+.hero-text h2 {
+  font-size: 2rem;
+  opacity: 0;
+  animation: slideLeft 1s ease forwards;
+  animation-delay: 0.7s;
 }
 .hero-text .highlighted-name {
   font-size: 45px; /* Slightly bigger */
@@ -128,24 +141,21 @@ header {
   display: inline-block;
   margin-left: 2px;
   width: 2px;
-
   animation: blink 0.7s infinite;
 }
 
-@keyframes blink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  51%,
-  100% {
-    opacity: 0;
-  }
-}
 .hero-text p {
   font-size: 1.2rem;
   margin-bottom: 1rem;
   color: var(--text-color);
+  opacity: 0;
+  animation: slideBottom 1s ease forwards;
+  animation-delay: 0.4s;
+}
+.hero-text .cta-button {
+  opacity: 0;
+  animation: slideTop 1s ease forwards;
+  animation-delay: 2s;
 }
 
 .cta-button {
@@ -154,8 +164,8 @@ header {
   color: var(--bg-color);
   padding: 1rem 2rem;
   border-radius: 5px;
-  cursor: pointer;
   transition: all 0.5s ease;
+  cursor: pointer;
 }
 .cta-button:hover {
   transform: scale(1.1);
@@ -168,20 +178,11 @@ header {
   box-shadow: 0 0 25px var(--main-color);
   cursor: pointer;
   animation: floatImage 3s ease-in-out infinite;
+  animation-delay: 3s;
   transition: 0.4s ease;
   flex-wrap: wrap;
 }
-@keyframes floatImage {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(1rem);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
+
 .hero-image img:hover {
   box-shadow: 0 0 25px var(--main-color), 0 0 35px var(--main-color),
     0 0 45px var(--main-color);
@@ -200,6 +201,10 @@ header {
   margin: 3rem 1.5rem 4rem 0;
   border-radius: 10%;
   gap: 10px;
+  transition: all 0.5s ease;
+  animation: slideLeft 1s ease forwards;
+  animation-delay: calc(var(--i) * 0.2s);
+  opacity: 0;
 }
 
 .social-icons a:hover {
@@ -294,7 +299,7 @@ section h2 {
 .project h3 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  color: var(--main-color);
+  color: var(--text-color);
 }
 .project p {
   margin-bottom: 1rem;
@@ -375,6 +380,71 @@ footer .social-icons a {
   margin: 0 10px;
 }
 
+/* Animations */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes floatImage {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+@keyframes slideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes slideTop {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slideBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
 /* Responsive Design */
 @media (max-width: 1200px) {
   html {
