@@ -95,12 +95,13 @@
               </svg>
             </a>
           </div>
-
-          <a href="#projects" class="cta-button">View My Work</a>
+          <div class="cta-button-container">
+            <a href="#projects" class="cta-button">View My Work</a>
+          </div>
         </div>
 
         <div class="hero-image">
-          <img src="images/ami2.jpg" alt="My Profile Photo" />
+          <img src="images/rsz_ami2.jpg" alt="My Profile Photo" />
         </div>
       </section>
       <!-- About Section -->
@@ -115,7 +116,9 @@
             elegant and functional websites. I am always eager to learn new
             technologies and apply them to solve real-world problems.
           </p>
-          <a href="#" class="cta-button">Read More</a>
+          <div class="cta-button-container">
+            <a href="#" class="cta-button">Read More</a>
+          </div>
         </div>
       </section>
 
@@ -126,19 +129,25 @@
             <img src="images/cse-mini-projects.webp" alt="Project 1" />
             <h3>Project 1</h3>
             <p>A brief description of this project.</p>
-            <a href="#" class="cta-button">View Project</a>
+            <div class="cta-button-container">
+              <a href="#" class="cta-button">View Project</a>
+            </div>
           </div>
           <div class="project">
             <img src="images/cse-mini-projects.webp" alt="Project 2" />
             <h3>Project 2</h3>
             <p>A brief description of this project.</p>
-            <a href="#" class="cta-button">View Project</a>
+            <div class="cta-button-container">
+              <a href="#" class="cta-button">View Project</a>
+            </div>
           </div>
           <div class="project">
             <img src="images/cse-mini-projects.webp" alt="Project 1" />
             <h3>Project 3</h3>
             <p>A brief description of this project.</p>
-            <a href="#" class="cta-button">View Project</a>
+            <div class="cta-button-container">
+              <a href="#" class="cta-button">View Project</a>
+            </div>
           </div>
         </div>
       </section>
@@ -149,10 +158,7 @@
           I'm currently available for freelance work. If you have a project that
           you think I can help with, please get in touch.
         </p>
-        <form
-          id="Form"
-          method="POST"
-        >
+        <form id="Form" method="POST">
           <div class="input-box">
             <input
               type="text"
@@ -194,7 +200,11 @@
           <div class="button">
             <input type="submit" value="Send Message" class="cta-button" />
           </div>
-          <div id="form-status" class="form-status" style="display: none"></div>
+          <div
+            id="form-status"
+            class="form-status"
+            style="display: none; margin-top: 1rem"
+          ></div>
         </form>
       </section>
     </main>
