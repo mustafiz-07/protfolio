@@ -149,23 +149,49 @@
           I'm currently available for freelance work. If you have a project that
           you think I can help with, please get in touch.
         </p>
-        <form id="Form" action="post">
+        <form
+          id="Form"
+          action="https://formsubmit.co/mustafizur01815@gmail.com"
+          method="POST"
+        >
           <div class="input-box">
-            <input type="text" placeholder="Full Name" />
-            <input type="email" placeholder="Email Address" />
+            <input
+              type="text"
+              name="full_name"
+              placeholder="Full Name"
+              required
+            />
+            <input
+              type="email"
+              name="email_address"
+              placeholder="Email Address"
+              required
+            />
           </div>
 
           <div class="input-box">
-            <input type="number" placeholder="Phone Number" />
-            <input type="text" placeholder="Email Subject" />
+            <input
+              type="number"
+              name="phone_number"
+              placeholder="Phone Number"
+            />
+            <input
+              type="text"
+              name="email_subject"
+              placeholder="Email Subject"
+              required
+            />
           </div>
+
           <textarea
             name="message"
             id=""
             cols="30"
             rows="10"
             placeholder="Your Message"
+            required
           ></textarea>
+
           <div class="button">
             <input type="submit" value="Send Message" class="cta-button" />
           </div>
