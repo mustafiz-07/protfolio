@@ -30,23 +30,37 @@ window.addEventListener("resize", () => {
   }
 });
 // form submission status handling
-window.onload = function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const status = urlParams.get("status");
-  const formStatusDiv = document.getElementById("form-status");
+const form = document.getElementById("Form");
+const messageBox = document.getElementById("form-status");
 
-  if (status) {
-    if (status === "success") {
-      formStatusDiv.textContent = "Message sent successfully!";
-      formStatusDiv.style.display = "block";
-      formStatusDiv.style.color = "green";
-    } else if (status === "error") {
-      formStatusDiv.textContent = "An error occurred. Please try again.";
-      formStatusDiv.style.display = "block";
-      formStatusDiv.style.color = "red";
-    }
-  }
-};
+form.addEventListener("submit", function (e) {
+  e.preventDefault(); // prevent default redirect
+
+  const formData = new FormData(form);
+
+  fetch("https://formsubmit.co/YOUR_EMAIL_HERE", {
+    method: "POST",
+    body: formData,
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        messageBox.style.display = "block";
+        messageBox.style.color = "green";
+        messageBox.innerText = "✅ Your message has been sent successfully!";
+        form.reset();
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    })
+    .catch((error) => {
+      messageBox.style.display = "block";
+      messageBox.style.color = "red";
+      messageBox.innerText = "❌ Oops! Something went wrong. Please try again.";
+    });
+});
 
 // Typewriter effect for the hero section
 const words = ["Web Developer", "Designer", "Content Creator"];
