@@ -9,14 +9,14 @@
   scroll-behavior: smooth;
   font-family: -apple-system, sans-serif;
 }
-/* :root {
+:root {
   --bg-color: #fff;
   --snd-bg-color: #d5fdf9;
   --text-color: #000;
   --main-color: #007f73;
   --bg-color2: #333;
-} */
-:root {
+}
+[data-theme="dark"] {
   --bg-color: #1a1a1a;
   --snd-bg-color: #222;
   --text-color: #f5f5f5;
@@ -26,12 +26,23 @@
 body {
   background: var(--bg-color);
   color: var(--text-color);
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
 ul {
   list-style: none;
   padding: 0;
+}
+/* Sections */
+section {
+  text-align: center;
+  width: 100%; /* Make it span the full viewport width */
+  min-height: 100vh;
+}
+
+section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
 }
 
 /* Header */
@@ -54,6 +65,14 @@ header {
   gap: 0.5rem;
   align-items: center;
   justify-items: space-between;
+}
+.others #close-icon {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  padding-left: 2rem;
+  height: 3rem;
 }
 .logo {
   font-family: "Pacifico", cursive; /* Unique font */
@@ -114,7 +133,7 @@ header {
   align-items: center;
   justify-content: space-around;
   padding: 6rem 2rem;
-  background-color: var(--snd-bg-color);
+  background-color: var(--bg-color);
 }
 
 .hero-text {
@@ -214,19 +233,6 @@ header {
   box-shadow: 0 0 25px var(--main-color);
 }
 
-/* Sections */
-section {
-  text-align: center;
-  width: 100%; /* Make it span the full viewport width */
-  min-height: 100vh;
-}
-
-section h2 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  font-weight: 600;
-}
-
 /* About */
 
 .about {
@@ -265,7 +271,6 @@ section h2 {
 }
 /* Education Section */
 .education {
-  min-height: 100vh;
   padding: 6rem 9% 2rem;
   background: var(--bg-color);
 }
@@ -428,8 +433,8 @@ section h2 {
   text-align: left;
 }
 .project:hover {
-  background-color: var(--main-color);
   transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 194, 168, 0.2);
 }
 .projects h2 {
   text-align: center;
@@ -790,13 +795,16 @@ footer .social-icons a {
 }
 @media (max-width: 991px) {
   .others #menu-icon {
-    display: none;
+    display: block;
+  }
+  .others #close-icon {
+    display: block;
   }
   .navbar {
     position: absolute;
     top: 100%;
     right: -255px; /* hidden initially */
-    width: 200;
+    width: 10rem;
     min-height: 100vh;
     line-height: 50px;
     font-style: italic;
@@ -809,7 +817,7 @@ footer .social-icons a {
   .navbar ul {
     display: flex;
     flex-direction: column; /* stack vertically */
-    padding: 0;
+    padding: 1rem;
     margin: 0;
   }
 
