@@ -72,7 +72,7 @@ header {
   font-size: 1.5rem;
   color: var(--text-color);
   padding-left: 2rem;
-  height: 3rem;
+  height: 5rem;
 }
 .logo {
   font-family: "Pacifico", cursive; /* Unique font */
@@ -108,6 +108,7 @@ header {
 .others #menu-icon {
   cursor: pointer;
   display: none;
+  font-size: 2rem;
 }
 
 #theme-toggle {
@@ -504,7 +505,7 @@ header {
 
 .progress-line {
   height: 5px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(47, 156, 25, 0.1);
   border-radius: 5px;
   position: relative;
   transform: scaleX(0);
@@ -520,7 +521,7 @@ header {
   border-radius: 5px;
   transform: scaleX(0);
   transform-origin: left;
-  animation: progressFill 1s ease forwards;
+  animation: progressLoad 1s ease forwards;
   animation-delay: 1s;
 }
 
@@ -559,7 +560,7 @@ header {
 
 .circle-bg {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.1);
+  stroke: rgba(47, 156, 25, 0.1);
   stroke-width: 3;
 }
 
@@ -619,11 +620,6 @@ header {
 
 /* Progress Bar Animations */
 @keyframes progressLoad {
-  100% {
-    transform: scaleX(1);
-  }
-}
-@keyframes progressFill {
   100% {
     transform: scaleX(1);
   }
