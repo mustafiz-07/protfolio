@@ -29,36 +29,47 @@ window.addEventListener("resize", () => {
     menu.style.display = "none";
   }
 });
-// form submission status handling
-const form = document.getElementById("Form");
-const messageBox = document.getElementById("form-status");
+// form submission handling
+document.getElementById("Form").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-form.addEventListener("submit", function (e) {
-  e.preventDefault(); // prevent default redirect
+  const formStatusDiv = document.getElementById("form-status");
+  const submitButton = this.querySelector('input[type="submit"]');
+  const formData = new FormData(this);
 
-  const formData = new FormData(form);
+  // Disable submit button during submission
+  submitButton.value = "Sending...";
+  submitButton.disabled = true;
 
-  fetch("https://formsubmit.co/YOUR_EMAIL_HERE", {
+  fetch("send_email.php", {
     method: "POST",
     body: formData,
-    headers: {
-      Accept: "application/json",
-    },
   })
-    .then((response) => {
-      if (response.ok) {
-        messageBox.style.display = "block";
-        messageBox.style.color = "green";
-        messageBox.innerText = "✅ Your message has been sent successfully!";
-        form.reset();
-      } else {
-        throw new Error("Network response was not ok");
+    .then((response) => response.json())
+    .then((data) => {
+      formStatusDiv.textContent = data.message;
+      formStatusDiv.style.display = "block";
+      formStatusDiv.style.color = data.status === "success" ? "green" : "red";
+
+      if (data.status === "success") {
+        // Clear the form on success
+        this.reset();
       }
     })
     .catch((error) => {
-      messageBox.style.display = "block";
-      messageBox.style.color = "red";
-      messageBox.innerText = "❌ Oops! Something went wrong. Please try again.";
+      formStatusDiv.textContent = "An error occurred. Please try again.";
+      formStatusDiv.style.display = "block";
+      formStatusDiv.style.color = "red";
+    })
+    .finally(() => {
+      // Re-enable submit button
+      submitButton.value = "Send Message";
+      submitButton.disabled = false;
+
+      // Hide the status message after 5 seconds
+      setTimeout(() => {
+        formStatusDiv.style.display = "none";
+      }, 5000);
     });
 });
 
@@ -93,3 +104,32 @@ function type() {
 }
 
 type();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const circles = document.querySelectorAll(".circle-progress");
+
+  circles.forEach((circle) => {
+    const percent = circle.getAttribute("data-percent");
+    const circumference = 2 * Math.PI * 40; // 2πr where r=40 (radius)
+    const offset = circumference - (percent / 100) * circumference;
+    circle.style.setProperty("--progress", offset);
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.5,
+    }
+  );
+
+  document.querySelectorAll(".circle-wrap").forEach((wrap) => {
+    observer.observe(wrap);
+  });
+});

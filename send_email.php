@@ -1,36 +1,68 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+require 'vendor/autoload.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
+    $name = $_POST['full_name'];
+    $email = $_POST['email_address'];
+    $phone = $_POST['phone_number'];
+    $subject = $_POST['email_subject'];
+    $message = $_POST['message'];
 
-    // Get the form data
-    $full_name = htmlspecialchars($_POST['full_name']);
-    $email_address = htmlspecialchars($_POST['email_address']);
-    $phone_number = htmlspecialchars($_POST['phone_number']);
-    $email_subject = htmlspecialchars($_POST['email_subject']);
-    $message = htmlspecialchars($_POST['message']);
+    // Create a new PHPMailer instance
+    $mail = new PHPMailer(true);
 
-    // Set your email address here
-    $to = "mustafizur01815@gmail.com"; // REPLACE THIS with your real email
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';  // Replace with your SMTP server
+        $mail->SMTPAuth = true;
+        $mail->Username = 'mustafizur01815@gmail.com'; // Replace with your email
+        $mail->Password = 'jups axkm ouin mmly'; // Replace with your app password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
 
-    // Prepare the email content
-    $email_content = "Name: $full_name\n";
-    $email_content .= "Email: $email_address\n";
-    $email_content .= "Phone: $phone_number\n\n";
-    $email_content .= "Message:\n$message\n";
+        // Recipients
+        $mail->setFrom($email, $name);
+        $mail->addAddress('mustafizur01815@gmail.com'); // Replace with your email where you want to receive messages
 
-    // Build the email headers
-    $email_headers = "From: $full_name <$email_address>";
-    
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = "Portfolio Contact: $subject";
+        
+        // Create HTML message
+        $mail->Body = "
+            <h3>New Contact Form Submission</h3>
+            <p><strong>Name:</strong> {$name}</p>
+            <p><strong>Email:</strong> {$email}</p>
+            <p><strong>Phone:</strong> {$phone}</p>
+            <p><strong>Subject:</strong> {$subject}</p>
+            <p><strong>Message:</strong></p>
+            <p>{$message}</p>
+        ";
 
-    // Send the email
-    if (mail($to, $email_subject, $email_content, $email_headers)) {
-        // Redirect back to the homepage with a success message
-        header("Location: index.html?status=success");
-    } else {
-        // Redirect back to the homepage with a failure message
-        header("Location: index.html?status=error");
+        $mail->AltBody = "
+            New Contact Form Submission\n
+            Name: {$name}\n
+            Email: {$email}\n
+            Phone: {$phone}\n
+            Subject: {$subject}\n
+            Message:\n{$message}
+        ";
+
+        $mail->send();
+        echo json_encode(['status' => 'success', 'message' => 'Message sent successfully!']);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['status' => 'error', 'message' => 'Message could not be sent. Try again later.']);
     }
 } else {
-    // Not a POST request, so redirect to the homepage
-    header("Location: index.html");
+    // If someone tries to access this file directly
+    http_response_code(403);
+    echo json_encode(['status' => 'error', 'message' => 'Access denied']);
 }
 ?>

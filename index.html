@@ -9,7 +9,12 @@
       href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
+
   <body>
     <header>
       <a href="#home" class="logo">Mustafiz</a>
@@ -95,13 +100,12 @@
               </svg>
             </a>
           </div>
-          <div class="cta-button-container">
-            <a href="#projects" class="cta-button">View My Work</a>
-          </div>
+
+          <a href="#projects" class="cta-button">View My Work</a>
         </div>
 
         <div class="hero-image">
-          <img src="images/rsz_ami2.jpg" alt="My Profile Photo" />
+          <img src="images/ami2.jpg" alt="My Profile Photo" />
         </div>
       </section>
       <!-- About Section -->
@@ -116,8 +120,167 @@
             elegant and functional websites. I am always eager to learn new
             technologies and apply them to solve real-world problems.
           </p>
-          <div class="cta-button-container">
-            <a href="#" class="cta-button">Read More</a>
+          <a href="#" class="cta-button">Read More</a>
+        </div>
+      </section>
+
+      <!-- Education Section -->
+      <section id="education" class="education">
+        <h2>My <span class="highlighted-name">Education</span></h2>
+        <div class="education-timeline">
+          <div class="education-item">
+            <div class="education-content">
+              <div class="year">2021 - Present</div>
+              <h3 class="title">Bachelor of Science in Computer Science</h3>
+              <p class="institution">
+                Khulna University of Engineering & Technology
+              </p>
+              <p class="description">
+                Currently pursuing a degree in Computer Science with focus on
+                Software Engineering and Web Development. Maintaining a strong
+                academic record with key coursework in Data Structures,
+                Algorithms, and Web Technologies.
+              </p>
+            </div>
+          </div>
+
+          <div class="education-item">
+            <div class="education-content">
+              <div class="year">2019 - 2021</div>
+              <h3 class="title">Higher Secondary Certificate (HSC)</h3>
+              <p class="institution">Notre Dame College,Dhaka</p>
+              <p class="description">
+                Completed HSC with focus on Science and Mathematics. Achieved
+                excellent academic results and participated in various
+                programming competitions.
+              </p>
+            </div>
+          </div>
+
+          <div class="education-item">
+            <div class="education-content">
+              <div class="year">2017 - 2019</div>
+              <h3 class="title">Secondary School Certificate (SSC)</h3>
+              <p class="institution">Chittagong Collegiate School</p>
+              <p class="description">
+                Completed SSC with distinction. Developed strong foundation in
+                sciences and mathematics. Active participant in school's
+                computer club.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="skills">
+        <h2>My <span class="highlighted-name">Skills</span></h2>
+        <div class="skills-container">
+          <div class="technical-skills">
+            <h3>Technical Skills</h3>
+            <div class="skill-bar">
+              <div class="skill-info">
+                <i class="fab fa-html5"></i>
+                <span>HTML</span>
+              </div>
+              <div class="progress-line html">
+                <span></span>
+              </div>
+            </div>
+
+            <div class="skill-bar">
+              <div class="skill-info">
+                <i class="fab fa-css3-alt"></i>
+                <span>CSS</span>
+              </div>
+              <div class="progress-line css">
+                <span></span>
+              </div>
+            </div>
+
+            <div class="skill-bar">
+              <div class="skill-info">
+                <i class="fab fa-js"></i>
+                <span>JavaScript</span>
+              </div>
+              <div class="progress-line javascript">
+                <span></span>
+              </div>
+            </div>
+
+            <div class="skill-bar">
+              <div class="skill-info">
+                <i class="fab fa-python"></i>
+                <span>Python</span>
+              </div>
+              <div class="progress-line python">
+                <span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="professional-skills">
+            <h3>Professional Skills</h3>
+            <div class="circular-progress">
+              <div class="circle-wrap">
+                <svg class="circular-chart" viewBox="0 0 100 100">
+                  <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                  <circle
+                    class="circle-progress creativity"
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    data-percent="90"
+                  ></circle>
+                </svg>
+                <div class="percentage">90%</div>
+                <p>Creativity</p>
+              </div>
+
+              <div class="circle-wrap">
+                <svg class="circular-chart" viewBox="0 0 100 100">
+                  <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                  <circle
+                    class="circle-progress communication"
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    data-percent="85"
+                  ></circle>
+                </svg>
+                <div class="percentage">85%</div>
+                <p>Communication</p>
+              </div>
+
+              <div class="circle-wrap">
+                <svg class="circular-chart" viewBox="0 0 100 100">
+                  <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                  <circle
+                    class="circle-progress problem-solving"
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    data-percent="75"
+                  ></circle>
+                </svg>
+                <div class="percentage">75%</div>
+                <p>Problem Solving</p>
+              </div>
+
+              <div class="circle-wrap">
+                <svg class="circular-chart" viewBox="0 0 100 100">
+                  <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                  <circle
+                    class="circle-progress teamwork"
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    data-percent="85"
+                  ></circle>
+                </svg>
+                <div class="percentage">85%</div>
+                <p>Teamwork</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -129,25 +292,19 @@
             <img src="images/cse-mini-projects.webp" alt="Project 1" />
             <h3>Project 1</h3>
             <p>A brief description of this project.</p>
-            <div class="cta-button-container">
-              <a href="#" class="cta-button">View Project</a>
-            </div>
+            <a href="#" class="cta-button">View Project</a>
           </div>
           <div class="project">
             <img src="images/cse-mini-projects.webp" alt="Project 2" />
             <h3>Project 2</h3>
             <p>A brief description of this project.</p>
-            <div class="cta-button-container">
-              <a href="#" class="cta-button">View Project</a>
-            </div>
+            <a href="#" class="cta-button">View Project</a>
           </div>
           <div class="project">
             <img src="images/cse-mini-projects.webp" alt="Project 1" />
             <h3>Project 3</h3>
             <p>A brief description of this project.</p>
-            <div class="cta-button-container">
-              <a href="#" class="cta-button">View Project</a>
-            </div>
+            <a href="#" class="cta-button">View Project</a>
           </div>
         </div>
       </section>
@@ -158,7 +315,7 @@
           I'm currently available for freelance work. If you have a project that
           you think I can help with, please get in touch.
         </p>
-        <form id="Form" method="POST">
+        <form id="Form" action="send_email.php" method="POST">
           <div class="input-box">
             <input
               type="text"

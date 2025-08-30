@@ -26,6 +26,7 @@
 body {
   background: var(--bg-color);
   color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 ul {
@@ -151,30 +152,29 @@ header {
   animation: slideBottom 1s ease forwards;
   animation-delay: 0.4s;
 }
-.cta-button-container {
-  opacity: 0;
-  animation: slideTop 1s ease forwards;
-  animation-delay: 1.6s;
-}
 
 .cta-button {
   display: inline-block;
-  z-index: -10;
   background-color: var(--main-color);
   color: var(--bg-color);
   padding: 1rem 2rem;
   border-radius: 5px;
+  transition: all 0.5s ease;
   cursor: pointer;
+  opacity: 0;
+  animation: slideTop 1s ease forwards;
+  animation-delay: 1.6s;
 }
 .cta-button:hover {
   transform: scale(1.1);
 }
+
 .hero-image img {
   width: 300px;
   height: 300px;
   border-radius: 50%;
+  box-shadow: 0 0 25px var(--main-color);
   cursor: pointer;
-  box-shadow: 0 0 15px var(--main-color);
   animation: floatImage 3s ease-in-out infinite;
   animation-delay: 3s;
   transition: 0.4s ease;
@@ -182,7 +182,8 @@ header {
 }
 
 .hero-image img:hover {
-  box-shadow: 0 0 15px var(--main-color), 0 0 25px var(--main-color);
+  box-shadow: 0 0 25px var(--main-color), 0 0 35px var(--main-color),
+    0 0 45px var(--main-color);
   animation: none;
 }
 
@@ -259,7 +260,151 @@ section h2 {
 .about-text p {
   margin-bottom: 2rem;
 }
+/* Education Section */
+.education {
+  min-height: 100vh;
+  padding: 6rem 9% 2rem;
+  background: var(--bg-color);
+}
 
+.education h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+.education-timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.education-timeline::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  background: var(--main-color);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.education-item {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+  opacity: 0;
+  animation: slideUp 1s ease forwards;
+}
+
+.education-item:nth-child(odd) {
+  left: 0;
+}
+
+.education-item:nth-child(even) {
+  left: 50%;
+}
+
+.education-content {
+  padding: 20px;
+  background: var(--snd-bg-color);
+  border-radius: 8px;
+  position: relative;
+  border-left: 4px solid var(--main-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.education-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 194, 168, 0.2);
+}
+
+.education-item::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: var(--main-color);
+  border: 4px solid var(--bg-color);
+  top: 25px;
+  right: -8px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.education-item:nth-child(even)::after {
+  left: -8px;
+}
+
+.education-content .year {
+  color: var(--main-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.education-content h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.education-content .institution {
+  color: var(--main-color);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.education-content .description {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Education Section Responsive Design */
+@media (max-width: 768px) {
+  .education {
+    padding: 6rem 5% 2rem;
+  }
+
+  .education-timeline::after {
+    left: 31px;
+  }
+
+  .education-item {
+    width: 100%;
+    padding-left: 80px;
+    padding-right: 20px;
+  }
+
+  .education-item:nth-child(even) {
+    left: 0;
+  }
+
+  .education-item::after {
+    left: 23px;
+  }
+
+  .education-item:nth-child(even)::after {
+    left: 23px;
+  }
+
+  .education-content {
+    margin-bottom: 30px;
+  }
+}
 /* Project Grid */
 
 .project-grid {
@@ -300,6 +445,187 @@ section h2 {
 }
 .project p {
   margin-bottom: 1rem;
+}
+
+/* Skills Section */
+.skills {
+  padding: 6rem 2rem;
+  background: var(--snd-bg-color);
+}
+
+.skills h2 {
+  margin-bottom: 4rem;
+}
+
+.skills-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.technical-skills,
+.professional-skills {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+.technical-skills h3,
+.professional-skills h3 {
+  margin-bottom: 2rem;
+  color: var(--main-color);
+}
+
+/* Technical Skills - Progress Bars */
+.skill-bar {
+  margin-bottom: 2rem;
+}
+
+.skill-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.skill-info i {
+  color: var(--main-color);
+  font-size: 1.5rem;
+}
+
+.progress-line {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  position: relative;
+  transform: scaleX(0);
+  transform-origin: left;
+  text-align: left;
+  animation: progressLoad 1s ease forwards;
+}
+
+.progress-line span {
+  height: 100%;
+  background: var(--main-color);
+  position: absolute;
+  border-radius: 5px;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: progressFill 1s ease forwards;
+  animation-delay: 1s;
+}
+
+.progress-line.html span {
+  width: 90%;
+}
+.progress-line.css span {
+  width: 85%;
+}
+.progress-line.javascript span {
+  width: 60%;
+}
+.progress-line.python span {
+  width: 75%;
+}
+
+/* Professional Skills - Circular Progress */
+.professional-skills .circular-progress {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.circle-wrap {
+  width: 120px;
+  position: relative;
+  text-align: center;
+}
+
+.circular-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 3;
+}
+
+.circle-progress {
+  fill: none;
+  stroke: var(--main-color);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 251.2;
+  stroke-dashoffset: 251.2;
+  /* Rotate only the progress circle to get the fill effect */
+  transform: rotate(-90deg);
+  transform-origin: center center;
+}
+
+.percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+}
+.circle-wrap .percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.circle-wrap p {
+  margin-top: 1rem;
+  color: var(--text-color);
+}
+
+/* Individual skill animations */
+.creativity {
+  animation: progress 1.5s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+.communication {
+  animation: progress 1.5s ease-out forwards;
+  animation-delay: 0.7s;
+}
+
+.problem-solving {
+  animation: progress 1.5s ease-out forwards;
+  animation-delay: 0.9s;
+}
+
+.teamwork {
+  animation: progress 1.5s ease-out forwards;
+  animation-delay: 1.1s;
+}
+
+@keyframes progress {
+  to {
+    stroke-dashoffset: var(--progress);
+  }
+}
+
+/* Progress Bar Animations */
+@keyframes progressLoad {
+  100% {
+    transform: scaleX(1);
+  }
+}
+@keyframes progressFill {
+  100% {
+    transform: scaleX(1);
+  }
 }
 
 /* Contact Section */
