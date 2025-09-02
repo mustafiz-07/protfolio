@@ -109,6 +109,9 @@ header {
   cursor: pointer;
   display: none;
   font-size: 2rem;
+  opacity: 0;
+  animation: slideTop 1s ease forwards;
+  animation-delay: calc(var(--i) * 0.2s);
 }
 
 #theme-toggle {
@@ -848,7 +851,7 @@ footer .social-icons a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: transparent;
+    background: var(--main-color);
     transition: all 0.5s ease;
     backdrop-filter: blur(10px);
   }
@@ -865,8 +868,7 @@ footer .social-icons a {
 
   .navbar ul li a {
     padding: 1rem;
-    font-size: 2rem;
-
+    font-size: 3rem;
     color: #fff;
   }
 
@@ -893,7 +895,6 @@ footer .social-icons a {
   }
   .about-img img {
     width: vw;
-    margin-top: 4rem;
   }
   .about-img {
     border-radius: 10%;
