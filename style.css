@@ -262,21 +262,26 @@ header {
   box-shadow: 0 0 25px var(--main-color), 0 0 35px var(--main-color),
     0 0 45px var(--main-color);
 }
-.about-text {
-  padding: 0 2rem;
-  text-align: left;
-  width: 70%;
-}
+
 .about-text p {
   margin-bottom: 2rem;
 }
-/* Education Section */
-.education {
-  padding: 6rem 9% 2rem;
-  background: var(--bg-color);
+.about-section {
+  padding: 0 2rem;
+  text-align: left;
+  width: 70%;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.education h2 {
+/* Education Section */
+.education-section {
+  padding: 6rem 9% 2rem;
+  background: var(--snd-bg-color);
+}
+
+.education-section h2 {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 4rem;
@@ -285,7 +290,7 @@ header {
 .education-timeline {
   position: relative;
   max-width: 1200px;
-  margin: 0 auto;
+  margin-bottom: 2rem;
 }
 
 .education-timeline::after {
@@ -454,6 +459,41 @@ header {
 }
 .project p {
   margin-bottom: 1rem;
+}
+
+/* Education Section Animation */
+.education-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-in-out;
+}
+
+.education-section.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.education-timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+#showLessBtn {
+  margin-top: 2rem;
+  opacity: 1;
+  animation: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .education-section {
+    padding: 1rem;
+  }
+
+  .education-timeline {
+    padding-top: 1rem;
+  }
 }
 
 /* Skills Section */
@@ -799,14 +839,16 @@ footer .social-icons a {
   .navbar {
     position: absolute;
     top: 100%;
-    right: -255px; /* hidden initially */
-    width: 10rem;
-    min-height: 100vh;
+    right: -100%; /* hidden initially */
+    width: 100%;
+    height: 50vh;
     line-height: 50px;
     font-style: italic;
     display: flex;
     flex-direction: column;
-    background: var(--main-color);
+    justify-content: center;
+    align-items: center;
+    background: transparent;
     transition: all 0.5s ease;
     backdrop-filter: blur(10px);
   }
@@ -822,8 +864,9 @@ footer .social-icons a {
   }
 
   .navbar ul li a {
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
+    padding: 1rem;
+    font-size: 2rem;
+
     color: #fff;
   }
 
