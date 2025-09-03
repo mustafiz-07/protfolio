@@ -155,8 +155,6 @@ function deleteEducation(educationId) {
   }
 }
 
-// Close modals when clicking outside
-
 document.addEventListener("DOMContentLoaded", function () {
   // Auto-hide success/error messages
   const messages = document.querySelectorAll(
