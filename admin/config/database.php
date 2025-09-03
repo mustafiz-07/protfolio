@@ -69,26 +69,8 @@ function initializeDatabase() {
             )
         ");
         
-        // Insert sample data if tables are empty
-        $projectCount = $pdo->query("SELECT COUNT(*) FROM projects")->fetchColumn();
-        if ($projectCount == 0) {
-            $pdo->exec("
-                INSERT INTO projects (title, description, image, link, status) VALUES
-                ('Portfolio Website', 'Personal portfolio website built with HTML, CSS, and JavaScript', 'cse-mini-projects.webp', '#', 'completed'),
-                ('E-commerce Platform', 'Full-stack e-commerce solution with payment integration', 'cse-mini-projects.webp', '#', 'in-progress'),
-                ('Task Management App', 'React-based task management application with real-time updates', 'cse-mini-projects.webp', '#', 'completed')
-            ");
-        }
-        
-        $educationCount = $pdo->query("SELECT COUNT(*) FROM education")->fetchColumn();
-        if ($educationCount == 0) {
-            $pdo->exec("
-                INSERT INTO education (degree, institution, year, description, status) VALUES
-                ('Bachelor of Science in Computer Science', 'University Name', '2023 - Present', 'Currently pursuing a degree in Computer Science with focus on Software Engineering and Web Development. Maintaining a strong academic record with key coursework in Data Structures, Algorithms, and Web Technologies.', 'current'),
-                ('Higher Secondary Certificate (HSC)', 'College Name', '2021 - 2023', 'Completed HSC with focus on Science and Mathematics. Achieved excellent academic results and participated in various programming competitions.', 'completed'),
-                ('Secondary School Certificate (SSC)', 'School Name', '2019 - 2021', 'Completed SSC with distinction. Developed strong foundation in sciences and mathematics. Active participant in school\'s computer club.', 'completed')
-            ");
-        }
+        // Sample data insertion has been removed to allow empty tables
+        // You can manually add sample data through the admin panel if needed
         
         return true;
     } catch (PDOException $e) {

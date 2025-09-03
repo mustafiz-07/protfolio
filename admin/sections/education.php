@@ -19,7 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $_POST['description'],
                         $_POST['status']
                     ]);
-                    $success_message = "Education record added successfully!";
+                    // Redirect to prevent form resubmission
+                    header("Location: admin.php?page=education&success=added");
+                    exit;
                     break;
                     
                 case 'edit_education':
@@ -32,19 +34,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $_POST['status'],
                         $_POST['education_id']
                     ]);
-                    $success_message = "Education record updated successfully!";
+                    // Redirect to prevent form resubmission
+                    header("Location: admin.php?page=education&success=updated");
+                    exit;
                     break;
                     
                 case 'delete_education':
                     $stmt = $pdo->prepare("DELETE FROM education WHERE id = ?");
                     $stmt->execute([$_POST['education_id']]);
-                    $success_message = "Education record deleted successfully!";
+                    // Redirect to prevent form resubmission
+                    header("Location: admin.php?page=education&success=deleted");
+                    exit;
                     break;
             }
         } catch (PDOException $e) {
-            $error_message = "Database error: " . $e->getMessage();
+            // Redirect with error message
+            header("Location: admin.php?page=education&error=" . urlencode($e->getMessage()));
+            exit;
         }
     }
+}
+
+// Handle success/error messages from URL parameters
+$success_message = '';
+$error_message = '';
+
+if (isset($_GET['success'])) {
+    switch ($_GET['success']) {
+        case 'added':
+            $success_message = "Education record added successfully!";
+            break;
+        case 'updated':
+            $success_message = "Education record updated successfully!";
+            break;
+        case 'deleted':
+            $success_message = "Education record deleted successfully!";
+            break;
+    }
+}
+
+if (isset($_GET['error'])) {
+    $error_message = "Database error: " . htmlspecialchars($_GET['error']);
 }
 
 // Fetch all education records from database

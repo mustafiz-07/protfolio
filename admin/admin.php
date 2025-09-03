@@ -31,38 +31,7 @@ $current_page = $_GET['page'] ?? 'dashboard';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="admin-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h3><i class="fas fa-user-cog"></i> Admin Panel</h3>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <ul>
-                    <li class="<?php echo $current_page === 'dashboard' ? 'active' : ''; ?>">
-                        <a href="dashboard.php?page=dashboard">
-                            <i class="fas fa-tachometer-alt"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="<?php echo $current_page === 'projects' ? 'active' : ''; ?>">
-                        <a href="dashboard.php?page=projects">
-                            <i class="fas fa-project-diagram"></i> Projects
-                        </a>
-                    </li>
-                    <li class="<?php echo $current_page === 'education' ? 'active' : ''; ?>">
-                        <a href="dashboard.php?page=education">
-                            <i class="fas fa-graduation-cap"></i> Education
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header -->
-            <header class="admin-header">
+ <header class="admin-header">
                 <div class="header-left">
                     <h1>
                         <?php 
@@ -76,7 +45,20 @@ $current_page = $_GET['page'] ?? 'dashboard';
                 </div>
                 
                 <div class="header-right">
-                    <span class="welcome-text">Welcome, <?php echo htmlspecialchars($_SESSION['admin_username']); ?>!</span>
+                    <!-- Navigation Links -->
+                    <nav class="header-nav">
+                        <a href="admin.php?page=dashboard" class="nav-link <?php echo $current_page === 'dashboard' ? 'active' : ''; ?>">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                        <a href="admin.php?page=projects" class="nav-link <?php echo $current_page === 'projects' ? 'active' : ''; ?>">
+                            <i class="fas fa-project-diagram"></i> Projects
+                        </a>
+                        <a href="admin.php?page=education" class="nav-link <?php echo $current_page === 'education' ? 'active' : ''; ?>">
+                            <i class="fas fa-graduation-cap"></i> Education
+                        </a>
+                    </nav>
+                    
+             
                     <a href="logout.php" class="logout-btn">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
@@ -99,8 +81,8 @@ $current_page = $_GET['page'] ?? 'dashboard';
                 }
                 ?>
             </div>
-        </main>
-    </div>
+       
+    
 
     <script src="admin-script.js"></script>
 </body>

@@ -13,7 +13,7 @@ function openProjectModal(projectId = null) {
     document.getElementById("projectId").value = projectId;
 
     // Fetch project data via AJAX
-    fetch(`api/get_record.php?type=project&id=${projectId}`)
+    fetch(`get_record.php?type=project&id=${projectId}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
@@ -89,7 +89,7 @@ function openEducationModal(educationId = null) {
     document.getElementById("educationId").value = educationId;
 
     // Fetch education data via AJAX
-    fetch(`api/get_record.php?type=education&id=${educationId}`)
+    fetch(`get_record.php?type=education&id=${educationId}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
@@ -156,8 +156,9 @@ function deleteEducation(educationId) {
 }
 
 // Close modals when clicking outside
+
 document.addEventListener("DOMContentLoaded", function () {
-  // Auto-hide success/error messages after 5 seconds
+  // Auto-hide success/error messages
   const messages = document.querySelectorAll(
     ".success-message, .error-message"
   );
@@ -170,20 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 5000);
   });
 
-  // Close modals when clicking outside
-  window.addEventListener("click", function (event) {
-    const projectModal = document.getElementById("projectModal");
-    const educationModal = document.getElementById("educationModal");
-
-    if (event.target === projectModal) {
-      closeProjectModal();
-    }
-
-    if (event.target === educationModal) {
-      closeEducationModal();
-    }
-  });
-
   // Handle form submissions with loading states
   const forms = document.querySelectorAll("form");
   forms.forEach((form) => {
@@ -191,9 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> Saving...';
-
+        submitBtn.innerHTML = "Saving...";
         // Re-enable after 3 seconds in case of failure
         setTimeout(() => {
           submitBtn.disabled = false;
@@ -210,22 +195,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Session timeout warning
   let sessionWarningShown = false;
-  setInterval(() => {
+
+  // Run this once when the page loads
+  setTimeout(() => {
     if (!sessionWarningShown) {
-      // Show warning 5 minutes before session expires (25 minutes)
-      setTimeout(() => {
-        if (
-          confirm(
-            "Your session will expire in 5 minutes. Do you want to stay logged in?"
-          )
-        ) {
-          // Refresh the page to extend session
-          window.location.reload();
-        }
-        sessionWarningShown = true;
-      }, 25 * 60 * 1000); // 25 minutes
+      if (
+        confirm(
+          "Your session will expire in 5 minutes. Do you want to stay logged in?"
+        )
+      ) {
+        // Refresh the page to extend session
+        window.location.reload();
+      }
+      sessionWarningShown = true;
     }
-  }, 1000);
+  }, 25 * 60 * 1000); // 25 minutes (warns 5 min before 30-min session)
+
+  // Image input event listener (merged from lines 240-248)
+  const imageInput = document.getElementById("projectImage");
+  if (imageInput) {
+    imageInput.addEventListener("change", function () {
+      handleImagePreview(this);
+    });
+  }
 });
 
 // Image preview for project form
@@ -250,48 +242,9 @@ function handleImagePreview(input) {
   }
 }
 
-// Add event listener for image input
-document.addEventListener("DOMContentLoaded", function () {
-  const imageInput = document.getElementById("projectImage");
-  if (imageInput) {
-    imageInput.addEventListener("change", function () {
-      handleImagePreview(this);
-    });
-  }
-});
-
-// Responsive sidebar toggle for mobile
-function toggleSidebar() {
-  const sidebar = document.querySelector(".sidebar");
-  sidebar.style.transform =
-    sidebar.style.transform === "translateX(0px)"
-      ? "translateX(-100%)"
-      : "translateX(0px)";
-}
-
-// Add hamburger menu for mobile (you can add this to the header)
-document.addEventListener("DOMContentLoaded", function () {
-  if (window.innerWidth <= 768) {
-    const header = document.querySelector(".admin-header");
-    const hamburger = document.createElement("button");
-    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-    hamburger.className = "hamburger-menu";
-    hamburger.style.cssText = `
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--admin-primary);
-            cursor: pointer;
-            margin-right: 1rem;
-        `;
-    hamburger.addEventListener("click", toggleSidebar);
-    header.insertBefore(hamburger, header.firstChild);
-  }
-});
-
 // Auto-refresh dashboard stats every 30 seconds
 if (
-  window.location.pathname.includes("dashboard.php") &&
+  window.location.pathname.includes("admin.php") &&
   new URLSearchParams(window.location.search).get("page") === "dashboard"
 ) {
   setInterval(() => {

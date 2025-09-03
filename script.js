@@ -17,7 +17,6 @@ menu.onclick = () => {
   navbar.classList.toggle("active");
   if (isMobileView()) {
     menu.style.display = "none";
-    
   }
 };
 
@@ -170,4 +169,76 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".circle-wrap").forEach((wrap) => {
     observer.observe(wrap);
   });
+
+  // Load dynamic content
+  loadProjects();
+  loadEducation();
 });
+
+// Function to load projects from database
+async function loadProjects() {
+  try {
+    const response = await fetch("api/portfolio.php?type=projects");
+    const result = await response.json();
+
+    if (result.success && result.data.length > 0) {
+      const projectGrid = document.querySelector(".project-grid");
+      if (projectGrid) {
+        projectGrid.innerHTML = ""; // Clear existing content
+
+        result.data.forEach((project) => {
+          const projectElement = document.createElement("div");
+          projectElement.className = "project";
+          projectElement.innerHTML = `
+            <img src="images/${
+              project.image || "cse-mini-projects.webp"
+            }" alt="${project.title}" />
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            <a href="${project.link || "#"}" class="cta-button" ${
+            project.link ? 'target="_blank"' : ""
+          }>
+              ${project.link ? "View Project" : "Coming Soon"}
+            </a>
+          `;
+          projectGrid.appendChild(projectElement);
+        });
+      }
+    }
+  } catch (error) {
+    console.error("Error loading projects:", error);
+    // Keep static content if API fails
+  }
+}
+
+// Function to load education from database
+async function loadEducation() {
+  try {
+    const response = await fetch("api/portfolio.php?type=education");
+    const result = await response.json();
+
+    if (result.success && result.data.length > 0) {
+      const educationTimeline = document.querySelector(".education-timeline");
+      if (educationTimeline) {
+        educationTimeline.innerHTML = ""; // Clear existing content
+
+        result.data.forEach((education) => {
+          const educationElement = document.createElement("div");
+          educationElement.className = "education-item";
+          educationElement.innerHTML = `
+            <div class="education-content">
+              <div class="year">${education.year}</div>
+              <h3>${education.degree}</h3>
+              <p class="institution">${education.institution}</p>
+              <p class="description">${education.description}</p>
+            </div>
+          `;
+          educationTimeline.appendChild(educationElement);
+        });
+      }
+    }
+  } catch (error) {
+    console.error("Error loading education:", error);
+    // Keep static content if API fails
+  }
+}

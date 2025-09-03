@@ -2,8 +2,6 @@
 require_once __DIR__ . '/../config/database.php';
 
 $pdo = getDBConnection();
-$success_message = '';
-$error_message = '';
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -20,7 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $_POST['link'],
                         $_POST['status']
                     ]);
-                    $success_message = "Project added successfully!";
+                    // Redirect to prevent form resubmission
+                    header("Location: admin.php?page=projects&success=added");
+                    exit;
                     break;
                     
                 case 'edit_project':
@@ -34,19 +34,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $_POST['status'],
                         $_POST['project_id']
                     ]);
-                    $success_message = "Project updated successfully!";
+                    // Redirect to prevent form resubmission
+                    header("Location: admin.php?page=projects&success=updated");
+                    exit;
                     break;
                     
                 case 'delete_project':
                     $stmt = $pdo->prepare("DELETE FROM projects WHERE id = ?");
                     $stmt->execute([$_POST['project_id']]);
-                    $success_message = "Project deleted successfully!";
+                    // Redirect to prevent form resubmission
+                    header("Location: admin.php?page=projects&success=deleted");
+                    exit;
                     break;
             }
         } catch (PDOException $e) {
-            $error_message = "Database error: " . $e->getMessage();
+            // Redirect with error message
+            header("Location: admin.php?page=projects&error=" . urlencode($e->getMessage()));
+            exit;
         }
     }
+}
+
+// Handle success/error messages from URL parameters
+$success_message = '';
+$error_message = '';
+
+if (isset($_GET['success'])) {
+    switch ($_GET['success']) {
+        case 'added':
+            $success_message = "Project added successfully!";
+            break;
+        case 'updated':
+            $success_message = "Project updated successfully!";
+            break;
+        case 'deleted':
+            $success_message = "Project deleted successfully!";
+            break;
+    }
+}
+
+if (isset($_GET['error'])) {
+    $error_message = "Database error: " . htmlspecialchars($_GET['error']);
 }
 
 // Fetch all projects from database

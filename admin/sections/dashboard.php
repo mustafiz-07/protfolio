@@ -60,30 +60,14 @@ try {
         </div>
     </div>
     
-    <div class="recent-activity">
-        <h3>Recent Activity</h3>
-        <div class="activity-list">
-            <div class="activity-item">
-                <i class="fas fa-plus-circle"></i>
-                <span>Admin panel created</span>
-                <time><?php echo date('Y-m-d H:i:s'); ?></time>
-            </div>
-            <div class="activity-item">
-                <i class="fas fa-sign-in-alt"></i>
-                <span>Admin logged in</span>
-                <time><?php echo date('Y-m-d H:i:s', $_SESSION['login_time']); ?></time>
-            </div>
-        </div>
-    </div>
-    
     <div class="quick-actions">
         <h3>Quick Actions</h3>
         <div class="actions-grid">
-            <a href="dashboard.php?page=projects" class="action-btn">
+            <a href="admin.php?page=projects" class="action-btn">
                 <i class="fas fa-plus"></i>
                 <span>Add New Project</span>
             </a>
-            <a href="dashboard.php?page=education" class="action-btn">
+            <a href="admin.php?page=education" class="action-btn">
                 <i class="fas fa-graduation-cap"></i>
                 <span>Update Education</span>
             </a>

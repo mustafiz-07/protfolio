@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+// Check if already logged in
+if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+    header('Location: admin.php');
+    exit();
+}ession_start();
+
 // Check if user is already logged in
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
     header('Location: dashboard.php');
@@ -17,7 +23,7 @@ if (isset($_COOKIE['admin_remember']) && !isset($_SESSION['admin_logged_in'])) {
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_username'] = $username;
         $_SESSION['login_time'] = time();
-        header('Location: dashboard.php');
+        header('Location: admin.php');
         exit();
     }
 }
@@ -45,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             setcookie('admin_remember', $cookie_hash, time() + (30 * 24 * 60 * 60), '/'); // 30 days
         }
         
-        header('Location: dashboard.php');
+        header('Location: admin.php');
         exit();
     } else {
         $error_message = 'Invalid username or password.';
