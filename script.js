@@ -21,12 +21,12 @@ menu.onclick = () => {
 };
 
 closeIcon.onclick = closeNavbar;
-
+//on scroll close the navbar
 window.onscroll = () => {
   closeNavbar();
 };
 
-// Ensure correct menu icon display on resize
+// correct menu icon display on resize
 window.addEventListener("resize", () => {
   if (isMobileView()) {
     menu.style.display = "block";
@@ -42,7 +42,7 @@ document.getElementById("Form").addEventListener("submit", function (e) {
   const submitButton = this.querySelector('input[type="submit"]');
   const formData = new FormData(this);
 
-  // Disable submit button during submission
+  // disable button during submission
   submitButton.value = "Sending...";
   submitButton.disabled = true;
 
@@ -78,24 +78,24 @@ document.getElementById("Form").addEventListener("submit", function (e) {
     });
 });
 
-// Theme toggle functionality
+// theme toggle functionality
 const themeToggle = document.getElementById("theme-toggle");
 const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
-// Function to toggle theme
+// function
 function toggleTheme() {
   if (document.documentElement.getAttribute("data-theme") === "dark") {
     document.documentElement.removeAttribute("data-theme");
     localStorage.setItem("theme", "light");
-    themeToggle.textContent = "🌙"; // moon emoji for dark mode option
+    themeToggle.textContent = "🌙";
   } else {
     document.documentElement.setAttribute("data-theme", "dark");
     localStorage.setItem("theme", "dark");
-    themeToggle.textContent = "☀️"; // sun emoji for light mode option
+    themeToggle.textContent = "☀️";
   }
 }
 
-// Set initial theme based on user's preference or localStorage
+// initialize with local storage
 function initializeTheme() {
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark" || (!savedTheme && prefersDarkScheme.matches)) {
@@ -106,7 +106,6 @@ function initializeTheme() {
   }
 }
 
-// Add event listeners
 themeToggle.addEventListener("click", toggleTheme);
 initializeTheme();
 
@@ -126,15 +125,15 @@ function type() {
     display.textContent = currentWord.substring(0, charIndex++);
   }
 
-  let speed = isDeleting ? 50 : 120; // typing / deleting speed
+  let speed = isDeleting ? 50 : 120;
 
   if (!isDeleting && charIndex === currentWord.length + 1) {
     isDeleting = true;
-    speed = 1000; // pause before deleting
+    speed = 1000;
   } else if (isDeleting && charIndex === -1) {
     isDeleting = false;
-    wordIndex = (wordIndex + 1) % words.length; // move to next word
-    speed = 500; // pause before typing new word
+    wordIndex = (wordIndex + 1) % words.length;
+    speed = 500;
   }
 
   setTimeout(type, speed);
@@ -170,7 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(wrap);
   });
 
-  // Load dynamic content
   loadProjects();
   loadEducation();
 });
@@ -186,7 +184,7 @@ async function loadProjects() {
     if (result.success && result.data.length > 0) {
       const projectGrid = document.querySelector(".project-grid");
       if (projectGrid) {
-        projectGrid.innerHTML = ""; // Clear existing content
+        projectGrid.innerHTML = "";
 
         result.data.forEach((project) => {
           const projectElement = document.createElement("div");
@@ -197,7 +195,7 @@ async function loadProjects() {
             }" alt="${project.title}" />
             <h3>${project.title}</h3>
             <p>${project.description}</p>
-            <a href="${project.link || "#"}" class="cta-button" ${
+            <a href="${project.link || "#projects"}" class="cta-button" ${
             project.link ? 'target="_blank"' : ""
           }>
               ${project.link ? "View Project" : "Coming Soon"}
@@ -209,7 +207,7 @@ async function loadProjects() {
     }
   } catch (error) {
     console.error("Error loading projects:", error);
-    // Keep static content if API fails
+    // Keep static if API fails
   }
 }
 

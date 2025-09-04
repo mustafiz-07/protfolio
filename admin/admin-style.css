@@ -115,12 +115,13 @@ body {
   border: 1px solid #c3e6cb;
 }
 
-.demo-credentials {
+.login-footer {
   margin-top: 2rem;
   padding: 1rem;
   background: var(--admin-light);
   border-radius: 3px;
   text-align: center;
+
   font-size: 0.9rem;
 }
 

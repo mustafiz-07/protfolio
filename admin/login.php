@@ -7,12 +7,6 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
     exit();
 }
 
-// Check if user is already logged in
-if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    header('Location: dashboard.php');
-    exit();
-}
-
 // Check for remember me cookie
 if (isset($_COOKIE['admin_remember']) && !isset($_SESSION['admin_logged_in'])) {
     $stored_hash = $_COOKIE['admin_remember'];
@@ -35,9 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = trim($_POST['password'] ?? '');
     $remember_me = isset($_POST['remember_me']);
     
-    // Simple authentication (you should use a database in production)
     $valid_username = 'admin';
-    $valid_password = 'admin123'; // In production, use hashed passwords
+    $valid_password = 'admin123'; 
     
     if ($username === $valid_username && $password === $valid_password) {
         // Start session
@@ -45,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['admin_username'] = $username;
         $_SESSION['login_time'] = time();
         
-        // Set remember me cookie if checked
+        // Set cookie if checked
         if ($remember_me) {
             $cookie_hash = hash('sha256', $username . 'remember_token_salt');
             setcookie('admin_remember', $cookie_hash, time() + (30 * 24 * 60 * 60), '/'); // 30 days
@@ -94,11 +87,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="login-btn">Login</button>
             </form>
             
-            <div class="demo-credentials">
-                <p><strong>Demo Credentials:</strong></p>
-                <p>Username: admin</p>
-                <p>Password: admin123</p>
-            </div>
+            <div class="login-footer" style=" margin-top: 2rem; padding: 1rem;background: var(--admin-light);border-radius: 3px;text-align: center;font-size: 0.9rem;">
+                <a href="../index.html">Back to Portfolio
+                <i class="fas fa-external-link-alt"></i>
+                </a>
         </div>
     </div>
 </body>

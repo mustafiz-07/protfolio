@@ -1,18 +1,15 @@
-// Admin Panel JavaScript
-
-// Modal Functions for Projects
+// modal functions for projects
 function openProjectModal(projectId = null) {
   const modal = document.getElementById("projectModal");
   const form = document.getElementById("projectForm");
   const title = document.getElementById("modalTitle");
 
   if (projectId) {
-    // Edit mode
+    // edit mode
     title.textContent = "Edit Project";
     form.querySelector('input[name="action"]').value = "edit_project";
     document.getElementById("projectId").value = projectId;
 
-    // Fetch project data via AJAX
     fetch(`get_record.php?type=project&id=${projectId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -31,7 +28,7 @@ function openProjectModal(projectId = null) {
         alert("Error fetching project data");
       });
   } else {
-    // Add mode
+    // add mode
     title.textContent = "Add New Project";
     form.querySelector('input[name="action"]').value = "add_project";
     form.reset();
@@ -54,7 +51,7 @@ function editProject(projectId) {
 
 function deleteProject(projectId) {
   if (confirm("Are you sure you want to delete this project?")) {
-    // Create a form to submit the delete request
+    // form to submit the delete request
     const form = document.createElement("form");
     form.method = "POST";
     form.style.display = "none";
@@ -76,19 +73,18 @@ function deleteProject(projectId) {
   }
 }
 
-// Modal Functions for Education
+// modal Functions for Education
 function openEducationModal(educationId = null) {
   const modal = document.getElementById("educationModal");
   const form = document.getElementById("educationForm");
   const title = document.getElementById("educationModalTitle");
 
   if (educationId) {
-    // Edit mode
+    // edit mode
     title.textContent = "Edit Education Record";
     form.querySelector('input[name="action"]').value = "edit_education";
     document.getElementById("educationId").value = educationId;
 
-    // Fetch education data via AJAX
     fetch(`get_record.php?type=education&id=${educationId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -110,7 +106,7 @@ function openEducationModal(educationId = null) {
         alert("Error fetching education data");
       });
   } else {
-    // Add mode
+    // add mode
     title.textContent = "Add Education Record";
     form.querySelector('input[name="action"]').value = "add_education";
     form.reset();
@@ -133,7 +129,7 @@ function editEducation(educationId) {
 
 function deleteEducation(educationId) {
   if (confirm("Are you sure you want to delete this education record?")) {
-    // Create a form to submit the delete request
+    //form to submit the delete request
     const form = document.createElement("form");
     form.method = "POST";
     form.style.display = "none";
@@ -156,7 +152,7 @@ function deleteEducation(educationId) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Auto-hide success/error messages
+  // hide success/error messages after 5s
   const messages = document.querySelectorAll(
     ".success-message, .error-message"
   );
@@ -169,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 5000);
   });
 
-  // Handle form submissions with loading states
+  // in loading state handle the button
   const forms = document.querySelectorAll("form");
   forms.forEach((form) => {
     form.addEventListener("submit", function (e) {
@@ -177,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = "Saving...";
-        // Re-enable after 3 seconds in case of failure
+        // if failed re-enable the button
         setTimeout(() => {
           submitBtn.disabled = false;
           submitBtn.innerHTML = submitBtn.dataset.originalText || "Save";
@@ -186,15 +182,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Store original button text
+  //button text
   document.querySelectorAll('button[type="submit"]').forEach((btn) => {
     btn.dataset.originalText = btn.innerHTML;
   });
 
-  // Session timeout warning
+  // session timeout warning
   let sessionWarningShown = false;
 
-  // Run this once when the page loads
+  // run this once when the page loads
   setTimeout(() => {
     if (!sessionWarningShown) {
       if (
@@ -202,14 +198,12 @@ document.addEventListener("DOMContentLoaded", function () {
           "Your session will expire in 5 minutes. Do you want to stay logged in?"
         )
       ) {
-        // Refresh the page to extend session
         window.location.reload();
       }
       sessionWarningShown = true;
     }
-  }, 25 * 60 * 1000); // 25 minutes (warns 5 min before 30-min session)
-
-  // Image input event listener (merged from lines 240-248)
+  }, 25 * 60 * 1000); // warns 5 min before 30-min session
+  //handle image preview
   const imageInput = document.getElementById("projectImage");
   if (imageInput) {
     imageInput.addEventListener("change", function () {
@@ -218,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Image preview for project form
+// image preview project form
 function handleImagePreview(input) {
   if (input.files && input.files[0]) {
     const reader = new FileReader();
@@ -238,22 +232,4 @@ function handleImagePreview(input) {
     };
     reader.readAsDataURL(input.files[0]);
   }
-}
-
-// Auto-refresh dashboard stats every 30 seconds
-if (
-  window.location.pathname.includes("admin.php") &&
-  new URLSearchParams(window.location.search).get("page") === "dashboard"
-) {
-  setInterval(() => {
-    // Update time
-    const timeElement = document.querySelector(".stat-card .stat-info h3");
-    if (timeElement && timeElement.textContent.includes(":")) {
-      timeElement.textContent = new Date().toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      });
-    }
-  }, 30000);
 }

@@ -16,7 +16,6 @@ if (isset($_SESSION['login_time']) && (time() - $_SESSION['login_time']) > 1800)
     exit();
 }
 
-// Update last activity time
 $_SESSION['login_time'] = time();
 
 $current_page = $_GET['page'] ?? 'dashboard';
@@ -182,7 +181,7 @@ try {
                 </div>
                 
                 <div class="header-right">
-                    <!-- Navigation Links -->
+<!-- Navigation Links -->
                     <nav class="header-nav">
                         <a href="admin.php?page=dashboard" class="nav-link <?php echo $current_page === 'dashboard' ? 'active' : ''; ?>">
                             <i class="fas fa-tachometer-alt"></i> Dashboard
@@ -202,7 +201,7 @@ try {
                 </div>
             </header>
 
-            <!-- Content Area -->
+<!-- Content Area -->
             <div class="content-area">
                 <?php if ($success_message): ?>
                     <div class="success-message"><?php echo htmlspecialchars($success_message); ?></div>
@@ -213,7 +212,7 @@ try {
                 <?php endif; ?>
 
                 <?php if ($current_page === 'dashboard'): ?>
-                    <!-- Dashboard Section -->
+<!-- Dashboard Section -->
                     <div class="dashboard-overview">
                         <div class="stats-grid">
                             <div class="stat-card">
@@ -243,16 +242,6 @@ try {
                                 <div class="stat-info">
                                     <h3><?php echo $completedProjects; ?></h3>
                                     <p>Completed Projects</p>
-                                </div>
-                            </div>
-                            
-                            <div class="stat-card">
-                                <div class="stat-icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <div class="stat-info">
-                                    <h3><?php echo date('H:i'); ?></h3>
-                                    <p>Current Time</p>
                                 </div>
                             </div>
                         </div>
