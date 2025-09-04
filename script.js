@@ -241,7 +241,7 @@ async function loadEducation() {
       }
     } else {
       if (educationTimeline) {
-        educationTimeline.classList.remove("no-items");
+        educationTimeline.classList.add("no-items");
         educationTimeline.innerHTML = "<p>No education items found.</p>";
       }
     }
