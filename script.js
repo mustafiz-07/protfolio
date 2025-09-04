@@ -46,7 +46,7 @@ document.getElementById("Form").addEventListener("submit", function (e) {
   submitButton.value = "Sending...";
   submitButton.disabled = true;
 
-  fetch("admin/send_email.php", {
+  fetch("http://localhost/My%20website/admin/send_email.php", {
     method: "POST",
     body: formData,
   })
@@ -178,7 +178,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // Function to load projects from database
 async function loadProjects() {
   try {
-    const response = await fetch("api/portfolio.php?type=projects");
+    const response = await fetch(
+      "http://localhost/My%20website/api/portfolio.php?type=projects"
+    );
     const result = await response.json();
 
     if (result.success && result.data.length > 0) {
@@ -214,14 +216,15 @@ async function loadProjects() {
 // Function to load education from database
 async function loadEducation() {
   try {
-    const response = await fetch("api/portfolio.php?type=education");
+    const response = await fetch(
+      "http://localhost/My%20website/api/portfolio.php?type=education"
+    );
     const result = await response.json();
-
+    const educationTimeline = document.querySelector(".education-timeline");
     if (result.success && result.data.length > 0) {
-      const educationTimeline = document.querySelector(".education-timeline");
       if (educationTimeline) {
         educationTimeline.innerHTML = ""; // Clear existing content
-
+        educationTimeline.classList.remove("no-items");
         result.data.forEach((education) => {
           const educationElement = document.createElement("div");
           educationElement.className = "education-item";
@@ -235,6 +238,11 @@ async function loadEducation() {
           `;
           educationTimeline.appendChild(educationElement);
         });
+      }
+    } else {
+      if (educationTimeline) {
+        educationTimeline.classList.remove("no-items");
+        educationTimeline.innerHTML = "<p>No education items found.</p>";
       }
     }
   } catch (error) {
