@@ -2,7 +2,7 @@
 function openProjectModal(projectId = null) {
   const modal = document.getElementById("projectModal");
   const form = document.getElementById("projectForm");
-  const title = document.getElementById("modalTitle");
+  const title = document.getElementById("projectModalTitle");
 
   if (projectId) {
     // edit mode
