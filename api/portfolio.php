@@ -1,5 +1,5 @@
 <?php
-require_once '../admin/config/database.php';
+require_once __DIR__ . '/../admin/config/database.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');

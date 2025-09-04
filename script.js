@@ -46,7 +46,7 @@ document.getElementById("Form").addEventListener("submit", function (e) {
   submitButton.value = "Sending...";
   submitButton.disabled = true;
 
-  fetch("send_email.php", {
+  fetch("admin/send_email.php", {
     method: "POST",
     body: formData,
   })
